@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 // ── Force Light Mode CSS Variables ──────────────────────────────────────────
 const LIGHT_MODE_STYLE = `
@@ -212,6 +213,7 @@ export default function App() {
 
         {page === "settings" && <SettingsPage data={data} update={update} />}
       </main>
+      <Analytics />
     </div>
   );
 }
