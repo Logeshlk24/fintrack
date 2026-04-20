@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#1a6b3c" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FinTrack" />
+    <meta name="description" content="Privacy-first net worth and F&O tracker" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>FinTrack</title>
+    <style>
+      html, body { overscroll-behavior: none; -webkit-overflow-scrolling: touch; }
+      #splash {
+        position: fixed; inset: 0; background: #fff;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        z-index: 9999; font-family: serif; transition: opacity 0.4s;
+      }
+      #splash h1 { font-size: 2rem; color: #1a6b3c; margin: 0 0 8px; }
+      #splash p { font-size: 0.85rem; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <div id="splash">
+      <h1>FinTrack</h1>
+      <p>Loading your finances...</p>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {});
+        });
+      }
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const splash = document.getElementById("splash");
+          if (splash) { splash.style.opacity = "0"; setTimeout(() => splash.remove(), 400); }
+        }, 800);
+      });
+    </script>
+  </body>
+</html>
